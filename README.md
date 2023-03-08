@@ -1,5 +1,5 @@
 # Ontrack - project management
-Check live demo on ontrack.onrender.com
+Check live [demo](https://ontrack.onrender.com/).
 
 ## Project set up
 
