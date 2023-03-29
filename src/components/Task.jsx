@@ -152,7 +152,7 @@ function Task({ data, projectId, cardColor, projectData }) {
   };
 
   useEffect(() => {
-    if (taskName === "New task" && !data.latestEdit) {
+    if (taskName === "New task" && !data.nameSet) {
       setFocus(true);
     }
   }, []);

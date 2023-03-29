@@ -107,14 +107,27 @@ function Navbar(props) {
         </Stack>
 
         <Stack direction="row" spacing={2} alignItems="center">
-          <Typography
-            display={{ xs: "none", sm: "block" }}
-            variant="body"
-            component="span"
-            color="#000"
-          >
-            {user ? `${greeting()}, ${user.displayName.split(" ").at(0)}` : ""}
-          </Typography>
+          {user.isAnonymous ? (
+            <Typography
+              display={{ xs: "none", sm: "block" }}
+              variant="body"
+              component="span"
+              color="#000"
+            >
+              Welcome, User!
+            </Typography>
+          ) : (
+            <Typography
+              display={{ xs: "none", sm: "block" }}
+              variant="body"
+              component="span"
+              color="#000"
+            >
+              {user
+                ? `${greeting()}, ${user.displayName.split(" ").at(0)}`
+                : ""}
+            </Typography>
+          )}
 
           <Avatar
             alt={user ? user.displayName : undefined}

@@ -255,7 +255,7 @@ function ActivitiesDisplay({ selectedDate }) {
                     {activitiesCount.task === 0 ? (
                       ""
                     ) : !taskExpanded ? (
-                      <Tooltip title="Show project activities" enterDelay={400}>
+                      <Tooltip title="Show task activities" enterDelay={400}>
                         <IconButton
                           size="small"
                           sx={{ ml: 1, p: 0 }}

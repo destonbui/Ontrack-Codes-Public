@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 
 export function fetchTasks(projectId) {
   const [todo, setTodo] = useState(null);
@@ -9,12 +15,21 @@ export function fetchTasks(projectId) {
 
   const tasksColRef = collection(db, "projects", projectId, "tasks");
 
-  const queryTodoTasks = query(tasksColRef, where("list", "==", "To Do"));
+  const queryTodoTasks = query(
+    tasksColRef,
+    where("list", "==", "To Do"),
+    orderBy("latestEdit", "desc")
+  );
   const queryProgressTasks = query(
     tasksColRef,
-    where("list", "==", "In Progress")
+    where("list", "==", "In Progress"),
+    orderBy("latestEdit", "desc")
   );
-  const queryDoneTasks = query(tasksColRef, where("list", "==", "Done"));
+  const queryDoneTasks = query(
+    tasksColRef,
+    where("list", "==", "Done"),
+    orderBy("latestEdit", "desc")
+  );
 
   useEffect(() => {
     const unsubTodo = onSnapshot(queryTodoTasks, (snapshot) => {

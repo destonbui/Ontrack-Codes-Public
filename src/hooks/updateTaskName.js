@@ -13,6 +13,7 @@ export async function updateTaskName(projectId, taskId, taskName) {
       {
         taskName: taskName,
         latestEdit: serverTimestamp(),
+        nameSet: true,
       },
       { merge: true }
     );

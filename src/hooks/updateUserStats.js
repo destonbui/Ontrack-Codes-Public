@@ -99,9 +99,6 @@ export async function updateUserStats(action, info) {
           (info.projectTasksTotal !== 0) &
           (info.projectTasksTotal !== undefined)
         ) {
-          console.log(
-            "searching for scheduled tasks from deleted project to delete"
-          );
           const q = query(
             scheduledTasksColRef,
             where("projectId", "==", info.projectId)
@@ -227,9 +224,20 @@ export async function updateUserStats(action, info) {
 
       case "Task done late":
         updateHighlightedDays();
-        const lateTotal = !data.lateTotal ? 1 : data.tasksTotal + 1;
+        const lateTotal = !data.lateTotal ? 1 : data.lateTotal + 1;
         updateData.lateTotal = lateTotal;
         updateStats();
+        const scheduledTaskDocRef_donelate = doc(
+          scheduledTasksColRef,
+          info.taskId
+        );
+        await setDoc(
+          scheduledTaskDocRef_donelate,
+          {
+            isDone: true,
+          },
+          { merge: true }
+        );
         break;
 
       case "Task done":

@@ -16,21 +16,33 @@ export async function updateTaskStatus(
   const taskDocRef = doc(tasksColRef, taskId);
 
   try {
-    await setDoc(
-      taskDocRef,
-      {
-        list: listDestination,
-        completedAt: new Date().toString(),
-      },
-      { merge: true }
-    );
+    if (listDestination === "Done") {
+      await setDoc(
+        taskDocRef,
+        {
+          list: listDestination,
+          completedAt: new Date().toString(),
+          latestEdit: serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } else {
+      await setDoc(
+        taskDocRef,
+        {
+          list: listDestination,
+          latestEdit: serverTimestamp(),
+        },
+        { merge: true }
+      );
+    }
 
     if (listDestination === "Done") {
       const current = new Date().setHours(0, 0, 0, 0);
       if (taskData.due) {
         const due = new Date(taskData.due).setHours(0, 0, 0, 0);
         if (due < current) {
-          updateUserStats("Task done late");
+          updateUserStats("Task done late", { taskId: taskId });
         } else {
           updateUserStats("Task done", { taskId: taskId });
         }

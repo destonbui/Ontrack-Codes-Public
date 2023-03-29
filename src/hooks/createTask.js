@@ -1,4 +1,4 @@
-import { collection, doc, addDoc } from "firebase/firestore";
+import { collection, doc, addDoc, serverTimestamp } from "firebase/firestore";
 import { updateProject } from "./updateProject";
 import { db, auth } from "../firebase";
 import { updateUserStats } from "./updateUserStats";
@@ -23,6 +23,7 @@ export async function createTask(projectId, list, projectData) {
         taskName: "New task",
         completedAt: new Date().toString(),
         createdAt: new Date().toString(),
+        latestEdit: serverTimestamp(),
       });
     } else {
       await addDoc(tasksColRef, {
@@ -30,6 +31,7 @@ export async function createTask(projectId, list, projectData) {
         list: list,
         taskName: "New task",
         createdAt: new Date().toString(),
+        latestEdit: serverTimestamp(),
       });
     }
 

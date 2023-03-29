@@ -12,6 +12,18 @@ import TaskAdd from "./TaskAdd";
 function TasksDisplay({ projectId, projectData }) {
   const { todo, progress, done } = fetchTasks(projectId);
 
+  function compare(a, b) {
+    if (!a.due && !b.due) {
+      return 0;
+    }
+    if (a.due && !b.due) {
+      return -1;
+    }
+    if (!a.due && b.due) {
+      return 1;
+    }
+  }
+
   return (
     <Box
       width="100%"
@@ -47,7 +59,7 @@ function TasksDisplay({ projectId, projectData }) {
                 No task to display.
               </Typography>
             ) : (
-              todo.map((task) => {
+              todo.sort(compare).map((task) => {
                 return (
                   <Task
                     key={task.id}
@@ -97,7 +109,7 @@ function TasksDisplay({ projectId, projectData }) {
                 No task to display.
               </Typography>
             ) : (
-              progress.map((task) => {
+              progress.sort(compare).map((task) => {
                 return (
                   <Task
                     key={task.id}

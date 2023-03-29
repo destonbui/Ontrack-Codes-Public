@@ -1,9 +1,17 @@
-import { Typography, Box, Divider, Drawer, List, Toolbar } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Divider,
+  Drawer,
+  List,
+  Toolbar,
+  Link as MuiLink,
+} from "@mui/material";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import NavItem from "./NavItem";
 
 function LeftSidebar(props) {
@@ -18,9 +26,12 @@ function LeftSidebar(props) {
           component="span"
           color="#1976d2"
         >
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <RouterLink
+            to="/"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             Ontrack
-          </Link>
+          </RouterLink>
         </Typography>
       </Toolbar>
       <Divider />
@@ -41,9 +52,23 @@ function LeftSidebar(props) {
           );
         })}
       </List>
-      <Box pl={3} position="absolute" bottom={10}>
+      <Box
+        pl={3}
+        position="absolute"
+        bottom={10}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
         <Typography variant="overline" color="gray">
-          Made by Deston Bui
+          &copy; 2023 by{" "}
+          <MuiLink
+            underline="hover"
+            href="https://github.com/destonbui"
+            target="_blank"
+          >
+            Deston Bui
+          </MuiLink>
         </Typography>
       </Box>
     </>
