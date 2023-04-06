@@ -29,7 +29,8 @@ function EditModal({ isOpen, handleClose, data, projectId }) {
     return {
       desc: desc,
       priority: priority,
-      priorityLevel: priority === "Low" ? 0 : priority === "Medium" ? 1 : 2,
+      priorityLevel:
+        priority === "Normal" ? 0 : priority === "Moderate" ? 1 : 2,
       status: status,
     };
   }, [desc, priority, status]);

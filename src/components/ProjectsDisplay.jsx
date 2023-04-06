@@ -44,36 +44,39 @@ function ProjectsDisplay({ state, category, createPermission }) {
   };
 
   const compare = (a, b) => {
-    if (a.priorityLevel > b.priorityLevel) {
+    const aProgress =
+      a.status === "Pending"
+        ? 0
+        : a.status === "Ongoing"
+        ? 1
+        : a.status === "Suspended"
+        ? 2
+        : 3;
+    const bProgress =
+      b.status === "Pending"
+        ? 0
+        : b.status === "Ongoing"
+        ? 1
+        : b.status === "Suspended"
+        ? 2
+        : 3;
+
+    if (aProgress < bProgress) {
       return -1;
     }
-    if (a.priorityLevel < b.priorityLevel) {
+    if (aProgress > bProgress) {
       return 1;
     }
-    if (a.priorityLevel === b.priorityLevel) {
-      const aProgress =
-        a.status === "Pending"
-          ? 0
-          : a.status === "Ongoing"
-          ? 1
-          : a.status === "Suspended"
-          ? 2
-          : 3;
-      const bProgress =
-        b.status === "Pending"
-          ? 0
-          : b.status === "Ongoing"
-          ? 1
-          : b.status === "Suspended"
-          ? 2
-          : 3;
-      if (aProgress < bProgress) {
+    if (aProgress === bProgress) {
+      if (a.priorityLevel > b.priorityLevel) {
         return -1;
       }
-      if (aProgress > bProgress) {
+      if (a.priorityLevel < b.priorityLevel) {
         return 1;
       }
-      return 0;
+      if (a.priorityLevel === b.priorityLevel) {
+        return 0;
+      }
     }
   };
 
